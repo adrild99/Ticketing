@@ -1,4 +1,5 @@
-package Evento;
+package modelo;
+
 public class Concierto extends Evento {
 
     private boolean artistaTop;

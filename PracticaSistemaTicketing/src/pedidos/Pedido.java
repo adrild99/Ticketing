@@ -1,6 +1,7 @@
+package pedidos;
 import java.util.ArrayList;
 
-import Pago.Pago;
+import pagos.Pago;
 
 public class Pedido {
 

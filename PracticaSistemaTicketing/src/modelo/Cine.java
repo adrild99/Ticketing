@@ -1,4 +1,5 @@
-package Evento;
+package modelo;
+
 public class Cine extends Evento {
 
     private boolean es3D;

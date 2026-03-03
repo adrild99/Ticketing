@@ -1,3 +1,4 @@
+package pedidos;
 public enum TipoOperacion {
     RESERVA("Está reservado"),
     COMPRA("Está comprado"),

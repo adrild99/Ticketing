@@ -1,3 +1,4 @@
+package pedidos;
 public enum EstadoPedido {
     PENDIENTE("Está pendiente"),
     PAGADO("Está pagado"),

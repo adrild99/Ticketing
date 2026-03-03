@@ -1,17 +1,16 @@
-package Evento;
-public enum Zona {
-    VIP("Es vip"),
-    ECONOMICA("Es económica"),
-    NORMAL("Es normal");
+package modelo;
+
+public enum ModoAforo {
+    GENERAL("Es general"),
+    NUMERADO("Es numerado");
 
     private String descripcion;
 
-    private Zona(String descripcion){
+    private ModoAforo(String descripcion){
         this.descripcion = descripcion;
     }
 
     public String getDescripcion(){
         return descripcion;
     }
-
 }

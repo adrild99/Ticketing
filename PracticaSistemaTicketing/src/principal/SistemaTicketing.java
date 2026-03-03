@@ -1,20 +1,27 @@
+package principal;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 import java.util.Stack;
 
-import Evento.Evento;
+import modelo.Asiento;
+import modelo.Categoria;
+import modelo.Concierto;
+import modelo.Evento;
+import modelo.ModoAforo;
+import modelo.Sesion;
+import pagos.Pago;
+import pagos.PagoBizum;
+import pagos.PagoPayPal;
+import pagos.PagoTarjeta;
+import pedidos.Carrito;
+import pedidos.Entrada;
+import pedidos.Operacion;
+import pedidos.Pedido;
+import pedidos.TipoOperacion;
+
 import java.time.LocalDateTime;
-import Evento.Concierto;
-import Evento.Asiento;
-import Evento.Categoria;
-import Evento.Sesion;
-import Pago.Pago;
-import Pago.PagoBizum;
-import Pago.PagoPayPal;
-import Pago.PagoTarjeta;
-import Evento.ModoAforo;
 
 public class SistemaTicketing {
 
@@ -168,6 +175,7 @@ public class SistemaTicketing {
 
         Pago pago = null;
 
+        
         if (opcionPago == 1) {
             System.out.print("Escribe tu número de teléfono: ");
             String telefono = sc.nextLine();

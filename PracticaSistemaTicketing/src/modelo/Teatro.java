@@ -1,4 +1,4 @@
-package Evento;
+package modelo;
 public class Teatro extends Evento {
 
     private boolean diaEspectador;

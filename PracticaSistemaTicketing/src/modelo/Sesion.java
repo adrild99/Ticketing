@@ -1,5 +1,5 @@
-package Evento;
-import java.time.LocalDate;
+package modelo;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 

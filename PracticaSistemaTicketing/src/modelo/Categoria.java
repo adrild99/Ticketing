@@ -1,4 +1,5 @@
-package Evento;
+package modelo;
+
 public enum Categoria {
     CONCIERTO("Es concierto"),
     TEATRO("Es teatro"),

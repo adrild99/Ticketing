@@ -1,4 +1,5 @@
-package Evento;
+package modelo;
+
 public class Asiento {
     private String idAsiento;
     private boolean reservado;

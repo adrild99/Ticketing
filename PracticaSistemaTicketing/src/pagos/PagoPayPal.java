@@ -1,4 +1,5 @@
-package Pago;
+package pagos;
+
 public class PagoPayPal extends Pago {
     
     private String email;

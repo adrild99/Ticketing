@@ -1,4 +1,5 @@
-import Evento.Asiento;
+package pedidos;
+import modelo.Asiento;
 
 public class Entrada {
     private String idEntrada;

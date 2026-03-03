@@ -1,4 +1,5 @@
 package principal;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -11,6 +12,7 @@ import modelo.Concierto;
 import modelo.Evento;
 import modelo.ModoAforo;
 import modelo.Sesion;
+import modelo.Teatro;
 import pagos.Pago;
 import pagos.PagoBizum;
 import pagos.PagoPayPal;
@@ -39,20 +41,30 @@ public class SistemaTicketing {
     public void inicializarDatos() {
         System.out.println("Cargando catálogo de eventos...");
 
-        Concierto c1 = new Concierto("EV-01", "Festival Rock", "Wizink Center", Categoria.CONCIERTO, true, false);
+        Concierto c1 = new Concierto("Festival Rock", "Wizink Center", Categoria.CONCIERTO, true, false);
+        Concierto c2 = new Concierto("Concierto Indie", "Sala Riviera", Categoria.CONCIERTO, false, false);
 
-        // ModoAforo.GENERAL)
-        Sesion s1 = new Sesion("SES-01", LocalDateTime.now().plusDays(-10), 500, 500, ModoAforo.GENERAL);
+        Sesion s1 = new Sesion(LocalDateTime.now().plusDays(10), 500, 500, ModoAforo.GENERAL);
+        Sesion s2 = new Sesion(LocalDateTime.now().plusDays(10), 500, 500, ModoAforo.GENERAL);
+
         c1.addSesion(s1);
-
+        c2.addSesion(s2);
+        
+        Teatro t1 = new Teatro("El Rey León", "Teatro Lope de Vega", Categoria.TEATRO, false, true);
+        Sesion s3 = new Sesion(LocalDateTime.now().plusDays(5), 100, 100, ModoAforo.NUMERADO); // O como lo llames
+        t1.addSesion(s3);
+        
+        
         this.catalogo.add(c1);
+        this.catalogo.add(c2); 
+        this.catalogo.add(t1);
     }
 
     public void menu() {
         boolean salir = false;
 
         while (!salir) {
-            System.out.println("\n------- SISTEMA DE VENTA DE ENTRADAS -------");
+            System.out.println("\n--> SISTEMA DE VENTA DE ENTRADAS <--");
             System.out.println("1. Ver catálogo");
             System.out.println("2. Comprar entradas");
             System.out.println("3. Deshacer última operación");
@@ -60,28 +72,35 @@ public class SistemaTicketing {
             System.out.println("5. Salir");
             System.out.print("Elige una opción: ");
 
-            int seleccion = sc.nextInt();
-            sc.nextLine();
+            try {
+                // Intentamos leer el número
+                int seleccion = sc.nextInt();
+                sc.nextLine(); // Limpiar el buffer
 
-            if (seleccion == 1) {
-                verCatalogo();
-            } else if (seleccion == 2) {
-                iniciarCompra();
-            } else if (seleccion == 3) {
-                deshacerUltimaOperacion();
-            } else if (seleccion == 4) {
-                procesarColaPedidos();
-            } else if (seleccion == 5) {
-                salir = true;
-                System.out.println("¡Hasta pronto!");
-            } else {
-                System.out.println("Opción incorrecta, elige otra");
+                if (seleccion == 1) {
+                    verCatalogo();
+                } else if (seleccion == 2) {
+                    iniciarCompra();
+                } else if (seleccion == 3) {
+                    deshacerUltimaOperacion();
+                } else if (seleccion == 4) {
+                    procesarColaPedidos();
+                } else if (seleccion == 5) {
+                    salir = true;
+                    System.out.println("Hasta prontooooo");
+                } else {
+                    System.out.println("Opción incorrecta, elige un número del 1 al 5.");
+                }
+
+            } catch (java.util.InputMismatchException e) {
+                // Si salta el error de que no es un número, caemos aquí
+                System.out.println("Error: Debes introducir un NÚMERO, no letras.\n");
             }
         }
     }
 
     public void verCatalogo() {
-        System.out.println("CATÁLOGO DE EVENTOS:");
+        System.out.println("\nCATÁLOGO DE EVENTOS:");
         for (Evento e : this.catalogo) {
             System.out.println(e.toString());
             for (Sesion s : e.getSesiones()) {
@@ -142,7 +161,7 @@ public class SistemaTicketing {
 
             for (int i = 0; i < cantidad; i++) {
                 double precioFinal = precioBase * eventoElegido.getRecargoBase();
-                Entrada e = new Entrada("ENTRADA" + i, eventoElegido.getId(), sesionElegida.getIdSesion(), null,
+                Entrada e = new Entrada(eventoElegido.getId(), sesionElegida.getIdSesion(), null,
                         precioFinal);
                 miCarrito.addEntrada(e);
                 entradasCompradas.add(e);
@@ -152,10 +171,16 @@ public class SistemaTicketing {
 
             ArrayList<Asiento> asientosReservados = sesionElegida.reservarAsientos(cantidad);
 
+            if (asientosReservados == null) { // se comprueba lo que devuelve el método reservarAsientos de la clase
+                                              // Sesion
+                System.out.println("Cancelando la compra...");
+                return; // Cortamos la ejecución del método aquí mismo
+            }
+
             for (int i = 0; i < asientosReservados.size(); i++) {
                 Asiento a = asientosReservados.get(i);
                 double precioFinal = precioBase * eventoElegido.getRecargoBase() * a.getMultiplicadorZona();
-                Entrada e = new Entrada("ENTRADA" + i, eventoElegido.getId(), sesionElegida.getIdSesion(), a,
+                Entrada e = new Entrada(eventoElegido.getId(), sesionElegida.getIdSesion(), a,
                         precioFinal);
                 miCarrito.addEntrada(e);
                 entradasCompradas.add(e);
@@ -175,7 +200,6 @@ public class SistemaTicketing {
 
         Pago pago = null;
 
-        
         if (opcionPago == 1) {
             System.out.print("Escribe tu número de teléfono: ");
             String telefono = sc.nextLine();
@@ -198,7 +222,7 @@ public class SistemaTicketing {
             return;
         }
 
-        Pedido miPedido = new Pedido("PED-1", miCarrito, pago);
+        Pedido miPedido = new Pedido(miCarrito, pago);
 
         Operacion op = new Operacion(TipoOperacion.COMPRA,
                 "Compra de " + cantidad + " entradas para " + eventoElegido.getNombre(), entradasCompradas);

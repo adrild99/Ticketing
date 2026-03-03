@@ -6,8 +6,8 @@ public class Concierto extends Evento {
     private boolean zonaVip;
 
 
-    public Concierto(String id, String nombre, String lugar, Categoria categoria, boolean artistaTop, boolean zonaVip) {
-        super(id, nombre, lugar, categoria);
+    public Concierto(String nombre, String lugar, Categoria categoria, boolean artistaTop, boolean zonaVip) {
+        super(nombre, lugar, categoria);
         this.artistaTop = artistaTop;
         this.zonaVip = zonaVip;
     }

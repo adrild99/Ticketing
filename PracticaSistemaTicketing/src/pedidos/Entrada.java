@@ -2,6 +2,9 @@ package pedidos;
 import modelo.Asiento;
 
 public class Entrada {
+
+    private static int contadorEntradas = 1;
+    
     private String idEntrada;
     private String idEvento;
     private String idSesion;
@@ -9,8 +12,9 @@ public class Entrada {
     private Asiento asiento;
     private double precioFinal;
 
-    public Entrada(String idEntrada, String idEvento, String idSesion, Asiento asiento, double precioFinal){
-        this.idEntrada =idEntrada;
+    public Entrada(String idEvento, String idSesion, Asiento asiento, double precioFinal){
+        this.idEntrada = String.format("ENT-%03d", contadorEntradas); // %03d para que sea ENT-001
+        contadorEntradas++;;
         this.idSesion=idSesion;
         this.asiento=asiento;
         this.precioFinal=precioFinal;
@@ -20,12 +24,12 @@ public class Entrada {
     public String toString() {
         String infoAsiento;
         
-        if (this.asiento != null) { //Se comprueba si hay asiento asignado, si no lo es sería aforo geneal (else)
+        if (this.asiento != null) { //si hay asiento asignado, si no lo es sería aforo geneal
             infoAsiento = this.asiento.getIdAsiento(); 
         } else {
             infoAsiento = "Aforo General";
         }
-        return "🎟️ TICKET [" + idEntrada + "] | Evento: " + idEvento + 
+        return "TICKET [" + idEntrada + "] | Evento: " + idEvento + 
                " | Sesión: " + idSesion + 
                " | Asiento: " + infoAsiento + 
                " | Precio Final: " + precioFinal + "€";

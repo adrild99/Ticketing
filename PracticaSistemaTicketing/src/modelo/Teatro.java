@@ -4,8 +4,8 @@ public class Teatro extends Evento {
     private boolean diaEspectador;
     private boolean descuentoEstudiante;
 
-    public Teatro(String id, String nombre, String lugar, Categoria categoria, boolean diaEspectador, boolean descuentoEstudiante) {
-        super(id, nombre, lugar, categoria);
+    public Teatro(String nombre, String lugar, Categoria categoria, boolean diaEspectador, boolean descuentoEstudiante) {
+        super(nombre, lugar, categoria);
         
         this.diaEspectador = diaEspectador;
         this.descuentoEstudiante = descuentoEstudiante;

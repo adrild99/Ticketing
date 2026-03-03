@@ -5,8 +5,8 @@ public class Cine extends Evento {
     private boolean es3D;
     private boolean esEstreno;
 
-    public Cine(String id, String nombre, String lugar, Categoria categoria, boolean es3D, boolean esEstreno) {
-        super(id, nombre, lugar, categoria);         
+    public Cine(String nombre, String lugar, Categoria categoria, boolean es3D, boolean esEstreno) {
+        super(nombre, lugar, categoria);         
         this.es3D = es3D;
         this.esEstreno = esEstreno;
     }

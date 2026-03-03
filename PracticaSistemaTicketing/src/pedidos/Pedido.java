@@ -5,6 +5,8 @@ import pagos.Pago;
 
 public class Pedido {
 
+    private static int contadorPedidos = 1;
+
     private String idPedido;
     private EstadoPedido estado;
     private ArrayList <Entrada> entradas = new ArrayList<>();
@@ -12,8 +14,9 @@ public class Pedido {
     private Pago pago;
     private double total;
 
-    public Pedido(String idPedido, Carrito carrito, Pago pago){
-        this.idPedido = idPedido;
+    public Pedido(Carrito carrito, Pago pago){
+        this.idPedido = String.format("PED-%03d", contadorPedidos);
+        contadorPedidos++;
         
         for (Entrada e : carrito.getEntradas()) {
             this.entradas.add(e); 

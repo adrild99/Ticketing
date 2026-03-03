@@ -3,6 +3,9 @@ package modelo;
 import java.util.ArrayList;
 
 public abstract class Evento implements Vendible{
+    
+    private static int contadorEventos = 1;
+
     private String id;
     private String nombre;
     private String lugar;
@@ -10,8 +13,9 @@ public abstract class Evento implements Vendible{
     private ArrayList<Sesion> sesiones = new ArrayList<>();
 
 
-    public Evento(String id, String nombre, String lugar, Categoria categoria) {
-        this.id = id;
+    public Evento(String nombre, String lugar, Categoria categoria) {
+        this.id = String.format("EV-%02d", contadorEventos);
+        contadorEventos++;
         this.nombre = nombre;
         this.lugar = lugar;
         this.categoria = categoria;

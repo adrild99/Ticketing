@@ -95,6 +95,7 @@ public class SistemaTicketing {
             } catch (java.util.InputMismatchException e) {
                 // Si salta el error de que no es un número, caemos aquí
                 System.out.println("Error: Debes introducir un NÚMERO, no letras.\n");
+                sc.nextLine();
             }
         }
     }
